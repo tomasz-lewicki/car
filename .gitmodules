@@ -1,0 +1,3 @@
+[submodule "2d_detection_node"]
+	path = 2d_detection_node
+	url = ./2d_detection_node/
