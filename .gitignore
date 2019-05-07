@@ -1,3 +1,4 @@
 nmea_navsat_driver/
 rosbags/
 venv
+.vscode
