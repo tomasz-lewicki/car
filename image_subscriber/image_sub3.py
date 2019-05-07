@@ -5,21 +5,24 @@ from rospy.numpy_msg import numpy_msg
 import time
 from PIL import Image as PIL_Image
 import numpy as np
+import matplotlib.pyplot as plt
 
 def vis_callback( data ):
     print(data.width)
-    im = np.frombuffer(data.data, dtype=np.uint8).reshape(data.height, data.width, 4)
-    # print(data.height)
+    img = np.frombuffer(data.data, dtype=np.uint8).reshape(data.height, data.width, 4)
 
-    # # w, h = 512, 512
-    # # data = np.zeros((h, w, 3), dtype=np.uint8)
-    # # data[256, 256] = [255, 0, 0]
-    print(im[:,:,0:2].shape)
-    im = im[:,:,::-1]
-    img = PIL_Image.fromarray(im[:,:,0:3], 'RGB')
-    # #img.save('my.png')
+
+    print(img.shape)
+    # print(img[:,:,0:2].shape)
+    img = img[:,:,0:3]
+    img = img[...,::-1]
+    img = PIL_Image.fromarray(img, 'RGB')
+    
     img.show()
     time.sleep(1)
+
+    # time.sleep(1)
+    # plt.close()
 
 
 
