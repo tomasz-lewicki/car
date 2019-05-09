@@ -33,6 +33,10 @@ def callback_pointcloud(data):
     array = np.array(list(gen))
 
     print(array)
+    #from sklearn import cluster
+    #import numpy as np
+    #X =np.random.rand(100,2)
+    #cluster.k_means(X, 5)
 
 if __name__ == '__main__':
     listener()
