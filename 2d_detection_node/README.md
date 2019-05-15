@@ -1,6 +1,4 @@
-# 2D detection ROS node setup:
-
-## Dependencies
+## Dependency setup:
 
 Anaconda is recommended for easy dependency management
 ( https://www.anaconda.com/distribution/ )
