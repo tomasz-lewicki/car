@@ -57,9 +57,9 @@ Your final setup can look simmilar to this one:
 
 # Results
 
-There are some examples of the inference below. All examples of 2D inference generated with the system are avalable in https://github.com/tomek-l/mercedes-clk-perception/tree/docs/
+There are some examples of the inference below. All examples of 2D inference generated with the system are avalable in https://github.com/tomek-l/mercedes-clk-perception/tree/master/images
 
-For more information, go see the paper https://github.com/tomek-l/mercedes-clk-perception/docs/CMPE297_03_PilotA.pdf
+For more information, go see the paper https://github.com/tomek-l/mercedes-clk-perception/blob/master/docs/CMPE297_03_PilotA.pdf
 
 ![image](docs/night_riding.jpg)
 
