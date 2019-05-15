@@ -1,13 +1,16 @@
 # mercedes-clk-perception
 
-## 1. install dependencies from:
+## 1. Install ROS melodic:
+Instructions are available at:
+http://wiki.ros.org/melodic/Installation/Ubuntu
 
+## 2. install dependencies:
 ```bash
 pip3 install -r requirements.txt
 ```
-(virutal environment is preferable)
+Most of the packages are already provided with ROS. Virutal environment is preferable.
 
-## 2. Run:
+## 3. Run:
 
 python3 fusion_node/main.py
 python3 gps_node/main.py
