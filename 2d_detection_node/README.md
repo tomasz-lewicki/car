@@ -31,5 +31,5 @@ python3 inference_ros.py
 ```
 
 ## Usage:
-The node subscribes to images on topic: /zed_node/left/image_rect_color
-The node publishes inference results on topic: /2d_node/results 
+The node subscribes to images on topic: ```/zed_node/left/image_rect_color```
+The node publishes inference results on topic: ```/2d_node/results``` 
