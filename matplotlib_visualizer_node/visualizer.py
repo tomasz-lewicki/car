@@ -34,22 +34,26 @@ if __name__ == '__main__':
     rospy.Subscriber("/ti_mmwave/radar_scan_pcl", PointCloud2, callback_pointcloud)
     rospy.Subscriber("/radar_pipeline/clusters", String, callback_clusters)
 
+    rate = rospy.Rate(30)
     fig, [ax1, ax2] = plt.subplots(1,2)
 
     while(True):
         ax1.clear()
         ax2.clear()
-        ax1.set(xlim=[-20, 20], ylim=[0,20], xlabel='X [m]', ylabel='Y [m]', title='Raw Point Cloud')
-        ax2.set(xlim=[-20, 20], ylim=[0,20], xlabel='X [m]', ylabel='Y [m]', title='Clusters')
+        ax1.set(xlim=[-15, 15], ylim=[0,15], xlabel='X [m]', ylabel='Y [m]', title='Raw Point Cloud')
+        ax2.set(xlim=[-15, 15], ylim=[0,15], xlabel='X [m]', ylabel='Y [m]', title='Clusters')
 
-        ax1.grid(which='major', alpha=0.5)
-        ax2.grid(which='major', alpha=0.5)
+        ax1.grid(which='major', alpha=0.1)
+        ax2.grid(which='major', alpha=0.1)
+
+        if PC is None:
+            time.sleep(1)
 
         #Pre-inference
         Y = PC[:,0]
         X = PC[:,1]
         intensity = PC[:,3]
-        ax1.scatter(X, Y, c=intensity, s=intensity)
+        ax1.scatter(-X, Y, c=intensity, s=intensity) # -X (for some reason the point cloud data is flipped in X axis)
 
         #Post-inference:
         centroids = CLUSTERS['centroids']
@@ -61,9 +65,10 @@ if __name__ == '__main__':
             s = 6 * sizesxy[idx]
             width = s[1]
             height = s[0]
-            print(height)
-            rect = patches.Rectangle((c[0]-width/2, c[1]-height/2), width, height, linewidth=1,edgecolor='r',facecolor='none')
+            rect = patches.Rectangle((c[0]-width/2, c[1]-height/2), width, height, linewidth=1,edgecolor='r',facecolor='None')
             ax2.add_patch(rect)
+            lab = 'label'
+            t1 = ax2.text(c[0]-width/2, c[1]+height/2, '{} {} m away'.format(lab, round(np.sqrt(c[1]**2+c[0]**2),2)), ha='center', color='red')
 
 
         colors = cm.rainbow(np.linspace(0, 1, len(clusters)))

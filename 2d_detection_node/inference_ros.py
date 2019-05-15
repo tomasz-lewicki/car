@@ -5,12 +5,13 @@ import skvideo.io
 from coco import coco
 from mrcnn import visualize2
 import mrcnn
+import jsonpickle
 
 
 import rospy 
 from sensor_msgs.msg import Image as ROS_Image
 from rospy.numpy_msg import numpy_msg
-from std_msgs.msg import Int32MultiArray
+from std_msgs.msg import Int32MultiArray, String
 import time
 from PIL import Image as PIL_Image
 import numpy as np
@@ -57,7 +58,7 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
 
 def inference(frame):
     
-    print(frame.shape)
+    print("@", time.time(), "Inference on image of shape ", frame.shape)
 
     results = model.detect([frame], verbose=False)
     
@@ -68,7 +69,7 @@ def inference(frame):
 
     frame = frame.astype(np.uint8)
 
-    return frame
+    return (results, frame)
 
 
 def vis_callback(data):
@@ -79,7 +80,7 @@ def vis_callback(data):
     img = img[:,:,0:3]
     img = img[...,::-1]
 
-    outimg = inference(img)
+    results, outimg = inference(img)
     outmsg = ROS_Image()
     outmsg.data = outimg.tostring()
     outmsg.encoding = "bgr8"
@@ -89,12 +90,13 @@ def vis_callback(data):
     # outimg.show()
 
     image_pub.publish(outmsg)
+    results_pub.publish(jsonpickle.encode(results))
 
+    #show or save here
+    #oimg = PIL_Image.fromarray(outimg, 'RGB')
+    #oimg.show()
+    #oimg.save("/home/tomek/mercedes-clk-perception/images/loop2_precise/{}.jpg".format(int(time.time())))
 
-
-    #could show here
-    oimg = PIL_Image.fromarray(outimg, 'RGB')
-    oimg.save("/home/tomek/mercedes-clk-perception/images/loop2_precise/{}.jpg".format(int(time.time())))
     pub_rate.sleep()
     # time.sleep(1)
 
@@ -102,6 +104,7 @@ if __name__ == '__main__':
     rospy.init_node('image_reader', anonymous=True)
     image_sub = rospy.Subscriber("/zed_node/left/image_rect_color", numpy_msg(ROS_Image), vis_callback)
 
-    image_pub = rospy.Publisher("/mrcnn/output_image", ROS_Image, queue_size=10)
+    image_pub = rospy.Publisher("/2d_node/output_image", ROS_Image, queue_size=10)
+    results_pub = rospy.Publisher("/2d_node/results", String, queue_size=10)
     pub_rate = rospy.Rate(1.5) #1Hz
     rospy.spin()
