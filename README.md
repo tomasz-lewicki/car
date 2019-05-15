@@ -23,6 +23,7 @@ python3 2d_detection_node/main.py #(additional instructions in 2d_detection_node
 
 ## 5. Play rosbag:
 ```bash
+roscore
 rosbag play 720loop1.bag
 ```
 
@@ -31,23 +32,37 @@ If everything worked out successfully
 ```bash
 $ rostopic list
 ```
-Should give the following output:
-```
-/2d_node/results
-/clicked_point
-/clock
-/fix
-/fusion/results
-/gps_node/heading
-/gps_node/speed
-/initialpose
-/move_base_simple/goal
-/mrcnn/output_image
-/radar_pipeline/clusters
+Should contain the following elements:
+```bash
+#standard ros topics
 /rosout
 /rosout_agg
-/tf
-/tf_static
+
+#raw data:
+/fix
 /ti_mmwave/radar_scan_pcl
 /zed_node/left/image_rect_color
+
+/2d_node/output_image #2D detection pipeline
+/2d_node/results
+
+/gps_node/heading #gps pipeline
+/gps_node/speed
+
+/radar_pipeline/clusters #radar pipeline
+
 ```
+Your final setup can look simmilar to this one:
+![image](docs/full_setup.png)
+
+# Results
+
+There are some examples of the inference below. All examples of 2D inference generated with the system are avalable in https://github.com/tomek-l/mercedes-clk-perception/tree/docs/
+
+For more information, go see the paper https://github.com/tomek-l/mercedes-clk-perception/docs/CMPE297_03_PilotA.pdf
+
+![image](docs/night_riding.jpg)
+
+![image](docs/person_in_cart.png)
+
+![image](docs/fusion.png)
