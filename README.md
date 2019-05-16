@@ -11,7 +11,7 @@ pip3 install -r requirements.txt
 Most of the packages are already provided with ROS. Virutal environment is preferable.
 
 ## 3. Download rosbags:
-
+https://drive.google.com/a/sjsu.edu/file/d/1-OQuWuRwvfPK0akXgAcgkNtSuKIMSzwA/view?usp=sharing
 
 ## 4. Run nodes:
 ```bash
