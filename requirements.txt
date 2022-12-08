@@ -17,7 +17,7 @@ camera-calibration-parsers==1.11.13
 catkin==0.7.17
 catkin-pkg==0.4.12
 catkin-pkg-modules==0.4.12
-certifi==2019.3.9
+certifi==2022.12.7
 chardet==3.0.4
 command-not-found==0.3
 controller-manager==0.15.1
